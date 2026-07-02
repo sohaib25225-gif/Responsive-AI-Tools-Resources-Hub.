@@ -1,0 +1,259 @@
+/* ============================================
+   1. CSS VARIABLES — the 2025 palette from
+      DecodeLabs' own brief (Mocha Mousse,
+      Ethereal Blue, Moonlit Grey)
+   ============================================ */
+:root {
+  --color-primary: #A5936F;   /* Mocha Mousse - Stability */
+  --color-accent: #A0D4E0;    /* Ethereal Blue - Trust */
+  --color-bg: #F2F0EA;        /* Moonlit Grey - Refinement */
+  --color-text: #2E2A24;
+  --color-white: #FFFFFF;
+  --radius: 12px;
+  --transition: 0.25s ease;
+  --max-width: 1100px;
+}
+
+/* ============================================
+   2. RESET — remove browser default spacing
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* Fluid typography using clamp() — scales smoothly
+   between mobile and desktop without media queries */
+h1 { font-size: clamp(1.8rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); margin-bottom: 1.5rem; }
+
+/* ============================================
+   3. HEADER / NAVBAR — Flexbox for micro layout
+   ============================================ */
+.site-header {
+  background: var(--color-white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.navbar {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--color-primary);
+}
+.logo span { color: var(--color-accent); }
+
+/* Mobile-first: nav menu is HIDDEN by default,
+   only shown when JS adds .active */
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-white);
+  flex-direction: column;
+  display: none;
+  padding: 1rem;
+}
+.nav-menu.active { display: flex; }
+
+.nav-menu li a {
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Hamburger button */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+}
+
+/* ============================================
+   4. HERO SECTION
+   ============================================ */
+.hero {
+  padding: 4rem 1.25rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-bg));
+}
+.hero-content { max-width: 600px; margin: 0 auto; }
+.hero p { margin: 1rem 0 1.5rem; font-size: 1.05rem; }
+
+.btn-primary {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+
+/* ============================================
+   5. RESOURCES SECTION — CSS Grid for macro layout
+   ============================================ */
+.resources {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#searchInput {
+  padding: 0.7rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Mobile-first grid: 1 column by default */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: transform var(--transition);
+}
+.card:hover { transform: translateY(-4px); }
+.card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+.card h3 { margin-bottom: 0.5rem; }
+.card p { font-size: 0.95rem; color: #555; margin-bottom: 0.75rem; }
+
+.tag {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+}
+
+.no-results { text-align: center; color: #888; padding: 2rem 0; }
+
+/* ============================================
+   6. ABOUT + FOOTER
+   ============================================ */
+.about {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  text-align: center;
+}
+
+.site-footer {
+  background: var(--color-text);
+  color: var(--color-white);
+  text-align: center;
+  padding: 2rem 1.25rem;
+}
+.site-footer a { color: var(--color-accent); }
+
+/* ============================================
+   7. RESPONSIVE BREAKPOINTS — mobile-first,
+      min-width media queries (as per the brief:
+      Tablet 768px, Desktop 1024px)
+   ============================================ */
+
+/* --- TABLET (768px and up) --- */
+@media (min-width: 768px) {
+  .nav-toggle { display: none; } /* hide hamburger */
+
+  .nav-menu {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 0;
+    background: none;
+  }
+  .nav-menu li a { border-bottom: none; padding: 0; }
+
+  .filter-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #searchInput { max-width: 300px; }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- DESKTOP (1024px and up) --- */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero { padding: 6rem 1.25rem; }
+}

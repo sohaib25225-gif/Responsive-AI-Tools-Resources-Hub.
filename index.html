@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools & Resources Hub | AI Employee Dev</title>
+  <meta name="description" content="Discover curated AI tools, courses, and resources to level up your AI/ML journey.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- HEADER: branding + navigation -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="#home" class="logo">AI Employee <span>Dev</span></a>
+
+      <!-- Hamburger button: only visible on mobile, controlled by JS -->
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN: the core content of the page -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Build the Future with AI</h1>
+        <p>A curated hub of free tools, courses, and roadmaps for AI/ML learners in Pakistan and beyond.</p>
+        <a href="#resources" class="btn-primary">Explore Resources</a>
+      </div>
+    </section>
+
+    <!-- RESOURCES SECTION -->
+    <section id="resources" class="resources">
+      <h2>Featured Resources</h2>
+
+      <!-- Search/filter bar (JS powered) -->
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search resources">
+        <div class="filter-buttons" id="filterButtons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="tools">Tools</button>
+          <button class="filter-btn" data-filter="courses">Courses</button>
+          <button class="filter-btn" data-filter="roadmaps">Roadmaps</button>
+        </div>
+      </div>
+
+      <!-- Card grid: each <article> is a self-contained content unit -->
+      <div class="card-grid" id="cardGrid">
+
+        <article class="card" data-category="tools">
+          <div class="card-icon">🤖</div>
+          <h3>ChatGPT / Claude</h3>
+          <p>Conversational AI assistants for research, coding, and writing.</p>
+          <span class="tag">Tool</span>
+        </article>
+
+        <article class="card" data-category="courses">
+          <div class="card-icon">🎓</div>
+          <h3>fast.ai Practical Deep Learning</h3>
+          <p>Free, hands-on deep learning course for coders.</p>
+          <span class="tag">Course</span>
+        </article>
+
+        <article class="card" data-category="roadmaps">
+          <div class="card-icon">🗺️</div>
+          <h3>AI/ML Learning Roadmap</h3>
+          <p>A structured 16-level path from basics to advanced AI.</p>
+          <span class="tag">Roadmap</span>
+        </article>
+
+        <article class="card" data-category="tools">
+          <div class="card-icon">🧠</div>
+          <h3>Hugging Face</h3>
+          <p>Open-source models, datasets, and inference APIs.</p>
+          <span class="tag">Tool</span>
+        </article>
+
+        <article class="card" data-category="courses">
+          <div class="card-icon">📘</div>
+          <h3>Andrew Ng's ML Specialization</h3>
+          <p>Foundational machine learning course on Coursera (audit free).</p>
+          <span class="tag">Course</span>
+        </article>
+
+        <article class="card" data-category="roadmaps">
+          <div class="card-icon">🚀</div>
+          <h3>Agentic AI Project Roadmap</h3>
+          <p>Step-by-step guide to building your first AI agent.</p>
+          <span class="tag">Roadmap</span>
+        </article>
+
+      </div>
+
+      <p class="no-results" id="noResults" hidden>No resources match your search.</p>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+      <h2>About This Hub</h2>
+      <p>Built by AI Employee Dev to help students in Pakistan and developing countries access world-class AI/ML resources at zero cost.</p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER: terminal metadata -->
+  <footer id="contact" class="site-footer">
+    <p>&copy; 2026 AI Employee Dev. All rights reserved.</p>
+    <p><a href="mailto:contact@aiemployeedev.com">contact@aiemployeedev.com</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
