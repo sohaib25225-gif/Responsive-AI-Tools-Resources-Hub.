@@ -1,525 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sohaib Ahmad — AI/ML Student & Full Stack Developer</title>
-<meta name="description" content="Portfolio of Sohaib Ahmad — BSAI student, Full Stack Developer Intern at Decode Labs, building AI-powered tools and automation.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#090c13;
-    --surface:#121826;
-    --surface-2:#171f30;
-    --line:#232b3d;
-    --text:#e7ecf5;
-    --muted:#8993a8;
-    --cyan:#45e0d5;
-    --violet:#b77cff;
-    --amber:#ffb454;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    line-height:1.6;
-    overflow-x:hidden;
-  }
-  h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;}
-  .mono{font-family:'JetBrains Mono',monospace;}
-  a{color:inherit;text-decoration:none;}
-  ::selection{background:var(--cyan);color:#04141f;}
-
-  /* background circuit grid */
-  .bg-grid{
-    position:fixed; inset:0; z-index:-2;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:48px 48px;
-    opacity:.25;
-    mask-image: radial-gradient(circle at 50% 0%, black 0%, transparent 75%);
-  }
-  .glow{
-    position:fixed; z-index:-1; border-radius:50%;
-    filter:blur(120px); opacity:.25; pointer-events:none;
-  }
-  .glow.c1{width:500px;height:500px;background:var(--cyan);top:-150px;left:-100px;}
-  .glow.c2{width:500px;height:500px;background:var(--violet);top:200px;right:-150px;}
-
-  nav{
-    position:sticky; top:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 6vw;
-    background:rgba(9,12,19,.75);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:.5px;}
-  nav .brand span{color:var(--cyan);}
-  nav ul{list-style:none;display:flex;gap:28px;margin:0;padding:0;}
-  nav ul li a{font-size:.9rem;color:var(--muted);transition:color .2s;}
-  nav ul li a:hover{color:var(--text);}
-  nav .menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--text);padding:8px 10px;border-radius:6px;font-size:1rem;cursor:pointer;}
-
-  section{padding:110px 6vw;max-width:1180px;margin:0 auto;}
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--cyan);
-    letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px; display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{content:'';width:22px;height:1px;background:var(--cyan);display:inline-block;}
-
-  /* HERO */
-  .hero{
-    min-height:92vh; display:flex; align-items:center;
-    padding-top:60px;
-  }
-  .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center;width:100%;}
-  .hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:700;line-height:1.08;}
-  .hero h1 .hl{
-    background:linear-gradient(90deg,var(--cyan),var(--violet));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .hero p.lead{color:var(--muted);font-size:1.1rem;max-width:520px;margin-top:22px;}
-  .terminal{
-    margin-top:30px; background:var(--surface); border:1px solid var(--line); border-radius:10px;
-    font-family:'JetBrains Mono',monospace; font-size:.85rem; overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.4);
-  }
-  .terminal .bar{display:flex;gap:6px;padding:10px 14px;background:var(--surface-2);border-bottom:1px solid var(--line);}
-  .terminal .bar span{width:10px;height:10px;border-radius:50%;background:var(--line);}
-  .terminal .bar span:nth-child(1){background:#ff5f57;}
-  .terminal .bar span:nth-child(2){background:#febc2e;}
-  .terminal .bar span:nth-child(3){background:#28c840;}
-  .terminal .body{padding:18px 20px;color:var(--muted);min-height:110px;}
-  .terminal .body .line{margin-bottom:6px;}
-  .terminal .prompt{color:var(--cyan);}
-  .terminal .out{color:var(--text);}
-  .cursor{display:inline-block;width:7px;height:14px;background:var(--cyan);animation:blink 1s step-end infinite;vertical-align:middle;}
-  @keyframes blink{50%{opacity:0;}}
-
-  .cta-row{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
-  .btn{
-    padding:13px 24px;border-radius:8px;font-weight:500;font-size:.92rem;
-    display:inline-flex;align-items:center;gap:8px;transition:transform .2s, box-shadow .2s, background .2s;
-    border:1px solid transparent;
-  }
-  .btn-primary{background:var(--cyan);color:#04141f;}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(69,224,213,.25);}
-  .btn-ghost{border-color:var(--line);color:var(--text);}
-  .btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px);}
-
-  /* Avatar node */
-  .avatar-wrap{position:relative;display:flex;align-items:center;justify-content:center;}
-  .avatar-ring{
-    width:280px;height:280px;border-radius:50%;
-    background:var(--surface);
-    border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .avatar-ring::before{
-    content:'';position:absolute;inset:-14px;border-radius:50%;
-    border:1px dashed var(--line);
-    z-index:2;
-    pointer-events:none;
-  }
-  .avatar-ring img{
-    width:100%;height:100%;object-fit:cover;object-position:center 20%;
-  }
-  .avatar-initials{
-    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:4.2rem;
-    background:linear-gradient(135deg,var(--cyan),var(--violet));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .node-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);}
-  .node-dot.n1{top:6%;left:12%;background:var(--violet);box-shadow:0 0 12px var(--violet);}
-  .node-dot.n2{bottom:10%;right:6%;}
-  .node-dot.n3{top:50%;right:-4%;background:var(--amber);box-shadow:0 0 12px var(--amber);}
-
-  /* SECTION HEADERS */
-  .sec-head{margin-bottom:48px;max-width:640px;}
-  .sec-head h2{font-size:clamp(1.7rem,3vw,2.3rem);}
-  .sec-head p{color:var(--muted);margin-top:10px;}
-
-  /* ABOUT */
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;}
-  .about-grid p{color:var(--muted);margin-bottom:16px;}
-  .about-grid strong{color:var(--text);}
-  .fact-list{display:grid;gap:16px;}
-  .fact{
-    display:flex;gap:14px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;
-  }
-  .fact .k{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;min-width:90px;}
-  .fact .v{font-size:.92rem;}
-
-  /* TIMELINE (signature element) */
-  .timeline{position:relative;padding-left:40px;}
-  .timeline::before{
-    content:'';position:absolute;left:9px;top:6px;bottom:6px;width:2px;
-    background:linear-gradient(var(--cyan),var(--violet));
-  }
-  .t-item{position:relative;margin-bottom:44px;}
-  .t-item:last-child{margin-bottom:0;}
-  .t-item::before{
-    content:'';position:absolute;left:-40px;top:4px;width:18px;height:18px;border-radius:50%;
-    background:var(--bg);border:2px solid var(--cyan);
-  }
-  .t-item.alt::before{border-color:var(--violet);}
-  .t-item .tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);letter-spacing:.5px;}
-  .t-item h3{font-size:1.15rem;margin-top:6px;}
-  .t-item .org{color:var(--cyan);font-size:.9rem;margin-top:2px;}
-  .t-item p{color:var(--muted);margin-top:10px;font-size:.94rem;}
-
-  /* CERTS */
-  .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-  .cert-card{
-    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;
-    transition:border-color .2s, transform .2s;
-  }
-  .cert-card:hover{border-color:var(--cyan);transform:translateY(-4px);}
-  .cert-card .icon{
-    width:38px;height:38px;border-radius:8px;background:var(--surface-2);
-    display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:.8rem;
-  }
-  .cert-card h3{font-size:1rem;margin-bottom:6px;}
-  .cert-card .org{color:var(--muted);font-size:.85rem;}
-  .cert-card .date{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--violet);margin-top:12px;display:block;}
-
-  /* PROJECTS */
-  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;}
-  .proj-card{
-    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px;
-    display:flex;flex-direction:column;justify-content:space-between;min-height:190px;
-    transition:border-color .2s, transform .2s;
-  }
-  .proj-card:hover{border-color:var(--violet);transform:translateY(-4px);}
-  .proj-top{display:flex;justify-content:space-between;align-items:flex-start;}
-  .proj-card h3{font-size:1.1rem;}
-  .proj-card p{color:var(--muted);font-size:.9rem;margin-top:10px;}
-  .proj-link{
-    width:34px;height:34px;border-radius:8px;border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.2s;
-  }
-  .proj-card:hover .proj-link{border-color:var(--cyan);color:var(--cyan);}
-  .stack-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
-  .stack-tag{
-    font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:4px 9px;border-radius:20px;
-    background:var(--surface-2);color:var(--muted);border:1px solid var(--line);
-  }
-
-  /* SKILLS */
-  .skills-wrap{display:flex;flex-wrap:wrap;gap:12px;}
-  .skill-pill{
-    padding:10px 18px;border-radius:8px;background:var(--surface);border:1px solid var(--line);
-    font-size:.9rem;display:flex;align-items:center;gap:8px;
-  }
-  .skill-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);}
-
-  /* CONTACT */
-  .contact-box{
-    background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:50px 6vw;
-    display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
-  }
-  .contact-box h2{font-size:clamp(1.6rem,3vw,2.1rem);}
-  .contact-box p{color:var(--muted);margin-top:12px;max-width:420px;}
-  .contact-list{display:grid;gap:14px;}
-  .contact-list a, .contact-list div{
-    display:flex;align-items:center;gap:12px;font-size:.94rem;padding:12px 16px;
-    background:var(--surface-2);border:1px solid var(--line);border-radius:10px;transition:.2s;
-  }
-  .contact-list a:hover{border-color:var(--cyan);color:var(--cyan);}
-
-  footer{text-align:center;padding:36px 6vw;color:var(--muted);font-size:.82rem;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;}
-
-  [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
-  [data-reveal].visible{opacity:1;transform:translateY(0);}
-
-  @media(max-width:860px){
-    nav ul{display:none;}
-    nav .menu-btn{display:block;}
-    .hero-grid{grid-template-columns:1fr;}
-    .avatar-wrap{order:-1;margin-bottom:10px;}
-    .avatar-ring{width:180px;height:180px;}
-    .avatar-initials{font-size:2.6rem;}
-    .about-grid{grid-template-columns:1fr;}
-    .contact-box{grid-template-columns:1fr;}
-    section{padding:80px 6vw;}
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none !important; transition:none !important;}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools & Resources Hub | AI Employee Dev</title>
+  <meta name="description" content="Discover curated AI tools, courses, and resources to level up your AI/ML journey.">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="glow c1"></div>
-<div class="glow c2"></div>
+  <!-- HEADER: branding + navigation -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="#home" class="logo">AI Employee <span>Dev</span></a>
 
-<nav>
-  <div class="brand">SOHAIB<span>.dev</span></div>
-  <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#certs">Certifications</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <button class="menu-btn" id="menuBtn">☰</button>
-</nav>
+      <!-- Hamburger button: only visible on mobile, controlled by JS -->
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-grid">
-    <div>
-      <div class="eyebrow">BSAI · Peshawar, Pakistan</div>
-      <h1>Sohaib Ahmad — building <span class="hl">AI tools</span> and full stack apps that ship.</h1>
-      <p class="lead">4th-semester AI/ML student at Abasyn University, currently interning as a Full Stack Developer at Decode Labs. I turn ideas into working products — from responsive web apps to automated content agents.</p>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-      <div class="terminal">
-        <div class="bar"><span></span><span></span><span></span></div>
-        <div class="body">
-          <div class="line"><span class="prompt">$</span> <span class="out">whoami</span></div>
-          <div class="line out">sohaib_ahmad — AI/ML student, full stack dev</div>
-          <div class="line"><span class="prompt">$</span> <span class="out">cat status.txt</span></div>
-          <div class="line out">Interning @ Decode Labs · Building AI Tools & Resources Hub<span class="cursor"></span></div>
+  <!-- MAIN: the core content of the page -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Build the Future with AI</h1>
+        <p>A curated hub of free tools, courses, and roadmaps for AI/ML learners in Pakistan and beyond.</p>
+        <a href="#resources" class="btn-primary">Explore Resources</a>
+      </div>
+    </section>
+
+    <!-- RESOURCES SECTION -->
+    <section id="resources" class="resources">
+      <h2>Featured Resources</h2>
+
+      <!-- Search/filter bar (JS powered) -->
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search resources..." aria-label="Search resources">
+        <div class="filter-buttons" id="filterButtons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="tools">Tools</button>
+          <button class="filter-btn" data-filter="courses">Courses</button>
+          <button class="filter-btn" data-filter="roadmaps">Roadmaps</button>
         </div>
       </div>
 
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#projects">View Projects</a>
-        <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+      <!-- Card grid: each <article> is a self-contained content unit -->
+      <div class="card-grid" id="cardGrid">
+
+        <article class="card" data-category="tools">
+          <div class="card-icon">🤖</div>
+          <h3>ChatGPT / Claude</h3>
+          <p>Conversational AI assistants for research, coding, and writing.</p>
+          <span class="tag">Tool</span>
+        </article>
+
+        <article class="card" data-category="courses">
+          <div class="card-icon">🎓</div>
+          <h3>fast.ai Practical Deep Learning</h3>
+          <p>Free, hands-on deep learning course for coders.</p>
+          <span class="tag">Course</span>
+        </article>
+
+        <article class="card" data-category="roadmaps">
+          <div class="card-icon">🗺️</div>
+          <h3>AI/ML Learning Roadmap</h3>
+          <p>A structured 16-level path from basics to advanced AI.</p>
+          <span class="tag">Roadmap</span>
+        </article>
+
+        <article class="card" data-category="tools">
+          <div class="card-icon">🧠</div>
+          <h3>Hugging Face</h3>
+          <p>Open-source models, datasets, and inference APIs.</p>
+          <span class="tag">Tool</span>
+        </article>
+
+        <article class="card" data-category="courses">
+          <div class="card-icon">📘</div>
+          <h3>Andrew Ng's ML Specialization</h3>
+          <p>Foundational machine learning course on Coursera (audit free).</p>
+          <span class="tag">Course</span>
+        </article>
+
+        <article class="card" data-category="roadmaps">
+          <div class="card-icon">🚀</div>
+          <h3>Agentic AI Project Roadmap</h3>
+          <p>Step-by-step guide to building your first AI agent.</p>
+          <span class="tag">Roadmap</span>
+        </article>
+
       </div>
-    </div>
 
-    <div class="avatar-wrap">
-      <div class="avatar-ring">
-        <img src="assets/profile.jpg" alt="Sohaib Ahmad">
-        <div class="node-dot n1"></div>
-        <div class="node-dot n2"></div>
-        <div class="node-dot n3"></div>
-      </div>
-    </div>
-  </div>
-</section>
+      <p class="no-results" id="noResults" hidden>No resources match your search.</p>
+    </section>
 
-<!-- ABOUT -->
-<section id="about" data-reveal>
-  <div class="sec-head">
-    <div class="eyebrow">About</div>
-    <h2>Student by semester, builder by habit.</h2>
-  </div>
-  <div class="about-grid">
-    <div>
-      <p>I'm a <strong>4th-semester BSAI student at Abasyn University, Peshawar</strong>, based in Shabqadar, Charsadda. My focus is practical AI — automation pipelines, prompt engineering, and full stack development — built with zero-cost, real-world tools.</p>
-      <p>I currently run <strong>AI EMPLOYEE DEV</strong>, a LinkedIn page where I share AI content and automation experiments, and I'm working toward a fully funded postgraduate degree in AI/ML abroad.</p>
-      <p>Right now I'm splitting my time between semester exams and my internship at <strong>Decode Labs</strong>, where I'm shipping a responsive web application from the ground up.</p>
-    </div>
-    <div class="fact-list">
-      <div class="fact"><span class="k">Location</span><span class="v">Shabqadar, Charsadda, KP, Pakistan</span></div>
-      <div class="fact"><span class="k">Education</span><span class="v">BSAI, 4th Semester — Abasyn University Peshawar</span></div>
-      <div class="fact"><span class="k">Currently</span><span class="v">Full Stack Developer Intern @ Decode Labs</span></div>
-      <div class="fact"><span class="k">Focus</span><span class="v">Python, AI automation, full stack web development</span></div>
-      <div class="fact"><span class="k">Goal</span><span class="v">Fully funded MS in AI/ML abroad</span></div>
-    </div>
-  </div>
-</section>
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about">
+      <h2>About This Hub</h2>
+      <p>Built by AI Employee Dev to help students in Pakistan and developing countries access world-class AI/ML resources at zero cost.</p>
+    </section>
 
-<!-- EXPERIENCE + EDUCATION TIMELINE -->
-<section id="experience" data-reveal>
-  <div class="sec-head">
-    <div class="eyebrow">Experience & Education</div>
-    <h2>Where the work is happening.</h2>
-  </div>
-  <div class="timeline">
-    <div class="t-item">
-      <div class="tag">2026 — PRESENT</div>
-      <h3>Full Stack Developer Intern</h3>
-      <div class="org">Decode Labs</div>
-      <p>Building a responsive web application — the "AI Tools & Resources Hub" — using HTML, CSS, and JavaScript, while managing delivery alongside a full semester course load.</p>
-    </div>
-    <div class="t-item alt">
-      <div class="tag">ONGOING</div>
-      <h3>Founder & Content Lead</h3>
-      <div class="org">AI EMPLOYEE DEV (LinkedIn Page)</div>
-      <p>Built an automated AI/IT news pipeline that scrapes updates from sources like Anthropic, OpenAI, and NVIDIA, drafts posts, and publishes via GitHub Actions and the Claude CLI.</p>
-    </div>
-    <div class="t-item">
-      <div class="tag">2023 — PRESENT</div>
-      <h3>BSAI — Bachelor of Science in Artificial Intelligence</h3>
-      <div class="org">Abasyn University, Peshawar</div>
-      <p>Currently in 4th semester, coursework spanning AI/ML fundamentals, databases, and software development.</p>
-    </div>
-  </div>
-</section>
+  </main>
 
-<!-- CERTIFICATIONS -->
-<section id="certs" data-reveal>
-  <div class="sec-head">
-    <div class="eyebrow">Certifications</div>
-    <h2>Learning, documented.</h2>
-  </div>
-  <div class="cert-grid">
-    <div class="cert-card">
-      <div class="icon">GPT</div>
-      <h3>Prompt Engineering with GPT: Programming for Custom Content</h3>
-      <div class="org">Coursera</div>
-      <span class="date">Issued 2026</span>
-    </div>
-    <div class="cert-card">
-      <div class="icon">AI</div>
-      <h3>Modern AI Python Level 1 Developer</h3>
-      <div class="org">Presidential Initiative for Artificial Intelligence & Computing (PIAIC)</div>
-      <span class="date">Jan 30, 2026</span>
-    </div>
-    <div class="cert-card">
-      <div class="icon">SEC</div>
-      <h3>Decrypting the Hacker Mind</h3>
-      <div class="org">Cyber Pashto — Abasyn University Peshawar</div>
-      <span class="date">May 12, 2026</span>
-    </div>
-  </div>
-</section>
+  <!-- FOOTER: terminal metadata -->
+  <footer id="contact" class="site-footer">
+    <p>&copy; 2026 AI Employee Dev. All rights reserved.</p>
+    <p><a href="mailto:contact@aiemployeedev.com">contact@aiemployeedev.com</a></p>
+  </footer>
 
-<!-- PROJECTS -->
-<section id="projects" data-reveal>
-  <div class="sec-head">
-    <div class="eyebrow">Projects</div>
-    <h2>Things I've shipped.</h2>
-  </div>
-  <div class="proj-grid">
-
-    <a class="proj-card" href="https://github.com/sohaib25225-gif/Responsive-AI-Tools-Resources-Hub..git" target="_blank" rel="noopener">
-      <div class="proj-top">
-        <h3>AI Tools & Resources Hub</h3>
-        <span class="proj-link">↗</span>
-      </div>
-      <div>
-        <p>Responsive web app built during my Decode Labs internship, curating AI tools and resources.</p>
-        <div class="stack-row"><span class="stack-tag">HTML</span><span class="stack-tag">CSS</span><span class="stack-tag">JavaScript</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="https://github.com/sohaib25225-gif/claude-linkedin-post-writer.git" target="_blank" rel="noopener">
-      <div class="proj-top">
-        <h3>Claude LinkedIn Post Writer</h3>
-        <span class="proj-link">↗</span>
-      </div>
-      <div>
-        <p>Automated content agent that drafts and publishes AI/IT news posts to LinkedIn via GitHub Actions.</p>
-        <div class="stack-row"><span class="stack-tag">Python</span><span class="stack-tag">Claude CLI</span><span class="stack-tag">GitHub Actions</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="https://github.com/sohaib25225-gif/backend-api-project2.git" target="_blank" rel="noopener">
-      <div class="proj-top">
-        <h3>Backend API — Project 2</h3>
-        <span class="proj-link">↗</span>
-      </div>
-      <div>
-        <p>REST API built during my Decode Labs internship, covering routing, middleware, and data handling.</p>
-        <div class="stack-row"><span class="stack-tag">Node.js</span><span class="stack-tag">Express</span><span class="stack-tag">REST API</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="https://github.com/sohaib25225-gif/Fast-API.git" target="_blank" rel="noopener">
-      <div class="proj-top">
-        <h3>FastAPI Project</h3>
-        <span class="proj-link">↗</span>
-      </div>
-      <div>
-        <p>Backend API built with FastAPI, exploring modern Python API development patterns.</p>
-        <div class="stack-row"><span class="stack-tag">Python</span><span class="stack-tag">FastAPI</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="https://github.com/sohaib25225-gif/Student_KNN_Project.git" target="_blank" rel="noopener">
-      <div class="proj-top">
-        <h3>Student KNN Project</h3>
-        <span class="proj-link">↗</span>
-      </div>
-      <div>
-        <p>Machine learning project applying the K-Nearest Neighbors algorithm to student data.</p>
-        <div class="stack-row"><span class="stack-tag">Python</span><span class="stack-tag">Machine Learning</span></div>
-      </div>
-    </a>
-
-    <a class="proj-card" href="https://github.com/sohaib25225-gif/Page_Rank_Algorithm.git" target="_blank" rel="noopener">
-      <div class="proj-top">
-        <h3>PageRank Algorithm</h3>
-        <span class="proj-link">↗</span>
-      </div>
-      <div>
-        <p>Implementation of the PageRank algorithm, exploring graph-based ranking systems.</p>
-        <div class="stack-row"><span class="stack-tag">Python</span><span class="stack-tag">Algorithms</span></div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills" data-reveal>
-  <div class="sec-head">
-    <div class="eyebrow">Skills</div>
-    <h2>Tools I build with.</h2>
-  </div>
-  <div class="skills-wrap">
-    <div class="skill-pill"><span class="dot"></span>Python</div>
-    <div class="skill-pill"><span class="dot"></span>HTML & CSS</div>
-    <div class="skill-pill"><span class="dot"></span>JavaScript</div>
-    <div class="skill-pill"><span class="dot"></span>FastAPI</div>
-    <div class="skill-pill"><span class="dot"></span>Machine Learning</div>
-    <div class="skill-pill"><span class="dot"></span>Prompt Engineering</div>
-    <div class="skill-pill"><span class="dot"></span>Git & GitHub</div>
-    <div class="skill-pill"><span class="dot"></span>GitHub Actions</div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" data-reveal>
-  <div class="contact-box">
-    <div>
-      <div class="eyebrow">Contact</div>
-      <h2>Let's build something together.</h2>
-      <p>Open to internships, freelance work, and collaboration on AI or full stack projects.</p>
-    </div>
-    <div class="contact-list">
-      <a href="mailto:sohaib25225@gmail.com">✉ sohaib25225@gmail.com</a>
-      <a href="tel:03339078988">☎ 0333-9078988</a>
-      <div>📍 Shabqadar, Charsadda, Pakistan</div>
-      <a href="https://www.linkedin.com/in/sohaib-ahmad-181478367" target="_blank" rel="noopener">in LinkedIn — sohaib-ahmad-181478367</a>
-      <a href="https://github.com/sohaib25225-gif" target="_blank" rel="noopener">⌥ GitHub — sohaib25225-gif</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © 2026 Sohaib Ahmad — Built with HTML, CSS & JavaScript.
-</footer>
-
-<script>
-  const items = document.querySelectorAll('[data-reveal]');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
-  }, {threshold:.15});
-  items.forEach(i=>io.observe(i));
-
-  const menuBtn = document.getElementById('menuBtn');
-  const navList = document.querySelector('nav ul');
-  menuBtn?.addEventListener('click', ()=>{
-    const open = navList.style.display === 'flex';
-    navList.style.display = open ? 'none' : 'flex';
-    navList.style.cssText += 'flex-direction:column; position:absolute; top:64px; right:6vw; background:var(--surface); border:1px solid var(--line); padding:16px 24px; border-radius:10px;';
-  });
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
